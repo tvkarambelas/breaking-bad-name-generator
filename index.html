@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>Breaking Bad Name Generator</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;700');
+
+      body {
+        font-family: "Libre Franklin", sans-serif;
+        margin: 0;
+        line-height: 1.1;
+        font-size: 100%;
+      }
+
+      #site {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      #name-cont {
+        padding: 4rem;
+        text-align: center;
+      }
+
+      #name {
+        color: #fff;
+        font-size: calc(4rem + 3vh);
+        font-weight: 900; 
+        margin-bottom: 2rem;
+      }
+
+      .element {
+        color: #369457;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main id="site">
+      <div id="name-cont">
+        <div id="name">
+          Vince Gilligan
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const elements = [
+        "Ac","Ag","Al","Am","Ar","As","At","Au","B","Ba","Be","Bh","Bi","Bk","Br","C","Ca","Cd","Ce","Cf","Cl","Cm","Cn","Co","Cr","Cs","Cu","Db","Ds","Dy","Er","Es","Eu","F","Fe","Fl","Fm","Fr","Ga","Gd","Ge","H","He","Hf","Hg","Ho","Hs","I","In","Ir","K","Kr","La","Li","Lr","Lu","Lv","Mc","Md","Mg","Mn","Mo","Mt","N","Na","Nb","Nd","Ne","Nh","Ni","No","Np","O","Og","Os","P","Pa","Pb","Pd","Pm","Po","Pr","Pt","Pu","Ra","Rb","Re","Rf","Rg","Rh","Rn","Ru","S","Sb","Sc","Se","Sg","Si","Sm","Sn","Sr","Ta","Tb","Tc","Te","Th","Ti","Tl","Tm","Ts","U","V","W","Xe","Y","Yb","Zn","Zr"    
+      ];
+
+      const name = document.querySelector("#name");
+
+      const searchForEls = function(els,name) {
+        let matches = [];
+
+        for (const element of els) {
+          const strPos = name.toUpperCase().indexOf(element.toUpperCase());
+
+          if (strPos !== -1) {
+            matches.push(
+              {
+                "element": element,
+                "position": strPos
+              }
+            );
+          }
+        }
+
+        return matches;
+      }
+
+      function elReplace(str,position,repStr) {
+        if(position > str.length-1) return str;
+        return str.substr(0,position) + "<span class='element'>" + repStr + "</span>" + str.substr(position+repStr.length);
+      }
+
+      let nameMatches = searchForEls(elements,name.innerText);
+
+      console.log(nameMatches);
+
+      const randEl = nameMatches[Math.floor(Math.random() * nameMatches.length)];
+
+      console.log(randEl);
+
+      name.innerHTML = elReplace(name.innerText,randEl.position,randEl.element);
+    </script>
+  </body>
+</html>
